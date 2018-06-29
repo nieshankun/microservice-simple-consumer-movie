@@ -5,6 +5,8 @@ server:
 spring:
   profiles:
     active: dev
+  application:
+    name: microservice-consumer-movie
   datasource:
     url: jdbc:mysql://localhost:3306/cloud?useSSL=true
     driver-class-name: com.mysql.jdbc.Driver
@@ -17,6 +19,14 @@ spring:
 
 user-service:
   url: http://localhost:8080/user-api/user/
+
+eureka:
+  client:
+    service-url:
+#      default-zone: http://nsk:abcd1234@localhost:8763/eureka/
+      default-zone: http://localhost:8763/eureka/
+  instance:
+    prefer-ip-address: true
 
 info:
   app:
