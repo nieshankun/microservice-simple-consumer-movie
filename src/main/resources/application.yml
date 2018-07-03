@@ -18,14 +18,21 @@ spring:
     show-sql: true
 
 user-service:
-  url: http://localhost:8080/user-api/user/
+  url: http://microservice-provider-user/user-api/user/
+  application: microservice-provider-user
 
 eureka:
   client:
     service-url:
-      defaultZone: http://nsk:abcd1234@localhost:8761/eureka/
+      defaultZone: http://nsk:abcd1234@localhost:8764/eureka/
+    healthcheck:
+      enabled: true
   instance:
     prefer-ip-address: true
+
+microservice-provider-user:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 
 info:
   app:
