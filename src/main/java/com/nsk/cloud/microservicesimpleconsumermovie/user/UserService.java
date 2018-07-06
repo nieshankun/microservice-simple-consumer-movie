@@ -25,9 +25,6 @@ public class UserService {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
-    @Autowired
-    private UserFeignClient userFeignClient;
-
     private String url;
 
     private String application;

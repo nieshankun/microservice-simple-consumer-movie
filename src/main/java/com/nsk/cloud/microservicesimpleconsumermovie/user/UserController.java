@@ -27,6 +27,9 @@ public class UserController {
     @Autowired
     private UserFeignClient userFeignClient;
 
+    @Autowired
+    private UserDefinedFeignClient userDefinedFeignClient;
+
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
@@ -45,6 +48,11 @@ public class UserController {
     @GetMapping("/feign/{id}")
     public User getUserByIdWithFeign(@PathVariable Long id) {
         return this.userFeignClient.findById(id);
+    }
+
+    @GetMapping("/defined/feign/{id}")
+    public User getUserByIdWithDefinedFeign(@PathVariable Long id){
+        return this.userDefinedFeignClient.findByIdWithDefinedFeign(id);
     }
 
 
