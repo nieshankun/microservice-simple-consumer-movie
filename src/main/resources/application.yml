@@ -3,8 +3,6 @@ server:
   servlet-path: /movie-api/*
 
 spring:
-  profiles:
-    active: dev
   application:
     name: microservice-consumer-movie
   datasource:

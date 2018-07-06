@@ -25,6 +25,9 @@ public class UserService {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
+    @Autowired
+    private UserFeignClient userFeignClient;
+
     private String url;
 
     private String application;
@@ -53,4 +56,5 @@ public class UserService {
         ServiceInstance serviceInstance = this.loadBalancerClient.choose(application);
         logger.info("{}:{}:{}", serviceInstance.getServiceId(), serviceInstance.getHost(), serviceInstance.getPort());
     }
+
 }

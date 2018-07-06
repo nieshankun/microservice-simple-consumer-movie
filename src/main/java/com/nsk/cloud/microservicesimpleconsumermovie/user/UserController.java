@@ -24,19 +24,28 @@ public class UserController {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    @Autowired
+    private UserFeignClient userFeignClient;
+
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id){
+    public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @GetMapping("/instance")
-    public List<ServiceInstance> showInfo(){
+    public List<ServiceInstance> showInfo() {
         return this.discoveryClient.getInstances("microservice-provider-user");
     }
 
     @GetMapping("/log-instance")
-    public void logUserInstance(){
+    public void logUserInstance() {
         userService.logUserInstance();
     }
+
+    @GetMapping("/feign/{id}")
+    public User getUserByIdWithFeign(@PathVariable Long id) {
+        return this.userFeignClient.findById(id);
+    }
+
 
 }
