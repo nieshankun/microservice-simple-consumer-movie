@@ -1,11 +1,16 @@
 package com.nsk.cloud.microservicesimpleconsumermovie.user;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,7 +51,16 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return restTemplate.getForObject(this.url + id, User.class);
+        final String plainCreds = "admin:password2";
+        final byte[] plainCredsBytes = plainCreds.getBytes();
+        final byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+        final String base64Creds = new String(base64CredsBytes);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + base64Creds);
+        final HttpEntity<String> request = new HttpEntity<String>(headers);
+        final ResponseEntity<User> response = restTemplate.exchange(this.url + id, HttpMethod.GET
+                ,request,User.class);
+        return response.getBody();
     }
 
     public void logUserInstance() {

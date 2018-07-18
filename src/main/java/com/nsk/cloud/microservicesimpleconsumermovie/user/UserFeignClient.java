@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * 2018/7/3 20:30
  * 只能对Controller层进行使用
  */
-@FeignClient(name = "microservice-provider-user")
+@FeignClient(name = "microservice-provider-user",configuration = FeignConfiguration.class)
 public interface UserFeignClient {
 //    @RequestMapping(value = "/user-api/user/{id}", method = RequestMethod.GET)
     @RequestLine("GET /user-api/user/{id}")

@@ -1,5 +1,12 @@
 package com.nsk.cloud.microservicesimpleconsumermovie.user;
 
+import com.netflix.discovery.converters.Auto;
+import feign.Client;
+import feign.Contract;
+import feign.Feign;
+import feign.auth.BasicAuthRequestInterceptor;
+import feign.codec.Decoder;
+import feign.codec.Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;

@@ -2,6 +2,7 @@ server:
   port: 8081
   servlet-path: /movie-api/*
 
+
 spring:
   application:
     name: microservice-consumer-movie
@@ -39,3 +40,6 @@ info:
     java:
       source: @java.version@
       target: @java.version@
+logging:
+  level:
+    com.nsk.cloud.microservicesimpleconsumermovie.user.UserFeignClient: DEBUG
