@@ -1,6 +1,7 @@
 package com.nsk.cloud.microservicesimpleconsumermovie.user;
 
 import com.netflix.discovery.converters.Auto;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import feign.Client;
 import feign.Contract;
 import feign.Feign;
@@ -37,9 +38,17 @@ public class UserController {
     @Autowired
     private UserDefinedFeignClient userDefinedFeignClient;
 
+    @HystrixCommand(fallbackMethod = "findByIdFallback")
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
+    }
+
+    public User findByIdFallback(Long id){
+        User user = new User();
+        user.setId(-1L);
+        user.setName("默认用户");
+        return user;
     }
 
     @GetMapping("/instance")
