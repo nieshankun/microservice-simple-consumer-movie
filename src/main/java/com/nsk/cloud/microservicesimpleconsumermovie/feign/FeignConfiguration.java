@@ -1,10 +1,12 @@
-package com.nsk.cloud.microservicesimpleconsumermovie.user;
+package com.nsk.cloud.microservicesimpleconsumermovie.feign;
 
 import feign.Contract;
+import feign.Feign;
 import feign.Logger;
 import feign.auth.BasicAuthRequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 /**
  * @author nsk
@@ -21,6 +23,12 @@ public class FeignConfiguration {
     @Bean
     public BasicAuthRequestInterceptor basicAuthRequestInterceptor(){
         return new BasicAuthRequestInterceptor("user","password1");
+    }
+
+    @Bean
+    @Scope("prototype")
+    public Feign.Builder feignBuilder() {
+        return Feign.builder();
     }
 
     @Bean

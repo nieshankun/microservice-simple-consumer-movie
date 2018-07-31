@@ -1,8 +1,10 @@
 package com.nsk.cloud.microservicesimpleconsumermovie.user;
 
+import com.nsk.cloud.microservicesimpleconsumermovie.feign.FeignClientFallback;
+import com.nsk.cloud.microservicesimpleconsumermovie.feign.FeignConfiguration;
 import feign.Param;
 import feign.RequestLine;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 
 /**
  * @author nsk
