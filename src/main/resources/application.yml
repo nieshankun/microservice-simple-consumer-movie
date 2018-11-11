@@ -1,7 +1,7 @@
 server:
   port: 8081
   servlet:
-    path: /*
+    path: /movie-api/*
 
 spring:
   application:
@@ -41,6 +41,10 @@ eureka:
 microservice-provider-user:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+ribbon:
+  ReadTimeout: 600000
+  ConnectTimeout: 600000
 
 info:
   app:
