@@ -21,12 +21,17 @@ public class MicroserviceSimpleConsumerMovieApplication {
         SpringApplication.run(MicroserviceSimpleConsumerMovieApplication.class, args);
     }
 
+    /**
+     * 为RestTemplate整合Ribbon,使其具备负载均衡的能力
+     * @return
+     */
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
+    // 使用hystrix的监控
     @Bean
     public ServletRegistrationBean getServlet(){
         HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();

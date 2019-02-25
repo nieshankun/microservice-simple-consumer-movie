@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Scope;
  */
 @Configuration
 public class FeignConfiguration {
+
+    // 将契约改为feign原生的默认契约
     @Bean
     public Contract feignContract(){
         return new feign.Contract.Default();

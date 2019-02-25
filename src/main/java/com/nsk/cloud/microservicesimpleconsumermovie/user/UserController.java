@@ -1,7 +1,5 @@
 package com.nsk.cloud.microservicesimpleconsumermovie.user;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -32,19 +30,9 @@ public class UserController {
     @Autowired
     private UserDefinedFeignClient userDefinedFeignClient;
 
-    @HystrixCommand(fallbackMethod = "findByIdFallback",commandProperties = {
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "8000")
-    })
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
-    }
-
-    public User findByIdFallback(Long id){
-        User user = new User();
-        user.setId(-1L);
-        user.setName("默认用户");
-        return user;
     }
 
     @GetMapping("/instance")

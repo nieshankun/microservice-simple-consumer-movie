@@ -1,5 +1,7 @@
 package com.nsk.cloud.microservicesimpleconsumermovie.user;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +52,10 @@ public class UserService {
         this.application = application;
     }
 
+    // 该注解不一定放置在Controller上，也可以是Service中
+    @HystrixCommand(fallbackMethod = "findByIdFallback",commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "8000")
+    })
     public User getUserById(Long id) {
         final String plainCreds = "admin:password2";
         final byte[] plainCredsBytes = plainCreds.getBytes();
@@ -61,6 +67,13 @@ public class UserService {
         final ResponseEntity<User> response = restTemplate.exchange(this.url + id, HttpMethod.GET
                 ,request,User.class);
         return response.getBody();
+    }
+
+    public User findByIdFallback(Long id){
+        User user = new User();
+        user.setId(-1L);
+        user.setName("默认用户");
+        return user;
     }
 
     public void logUserInstance() {

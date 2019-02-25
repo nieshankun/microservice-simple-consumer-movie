@@ -17,6 +17,7 @@ spring:
     show-sql: true
 
 user-service:
+  #  microservice-provider-user是用户微服务的虚拟主机名
   url: http://microservice-provider-user/user-api/user/
   application: microservice-provider-user
 
@@ -38,9 +39,12 @@ eureka:
   instance:
     prefer-ip-address: true
 
+# 将负载均衡规则修改为随机
 microservice-provider-user:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#    脱离Eureka使用Ribbon
+#    listOfServers: localhost:8082,localhost:8083
 
 ribbon:
   ReadTimeout: 600000
